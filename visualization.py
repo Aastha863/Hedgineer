@@ -57,6 +57,15 @@ selected_composition = composition_data[composition_data['Date'] == selected_dat
 st.subheader(f"Index Composition on {selected_date}")
 st.dataframe(selected_composition)
 
+# Add download button for CSV export, dropping the index column
+csv = selected_composition.to_csv(index=False)
+st.download_button(
+    label="Download Composition as CSV",
+    data=csv,
+    file_name=f"index_composition_{selected_date}.csv",
+    mime="text/csv"
+)
+
 # Alternatively, display composition as a bar chart
 st.subheader("Index Composition - Bar Chart")
 fig2 = px.bar(selected_composition, x='Ticker', y='Weight', title=f'Index Composition on {selected_date}')
